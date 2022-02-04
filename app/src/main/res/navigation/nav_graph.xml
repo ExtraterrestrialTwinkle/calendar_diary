@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/calendarFragment">
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.siuzannasmolianinova.calendar_diary.presentation.calendar.CalendarFragment"
+        android:label="calendar_fragment"
+        tools:layout="@layout/calendar_fragment" >
+        <action
+            android:id="@+id/action_calendarFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.siuzannasmolianinova.calendar_diary.presentation.add.AddFragment"
+        android:label="add_fragment"
+        tools:layout="@layout/add_fragment" >
+        <argument
+            android:name="timestamp"
+            app:argType="long" />
+    </fragment>
+</navigation>

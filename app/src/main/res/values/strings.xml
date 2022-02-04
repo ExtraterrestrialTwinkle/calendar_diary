@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Calendar_Diary</string>
+    <string name="diary">Список дел</string>
+    <string name="title">Название</string>
+    <string name="to">до</string>
+    <string name="cancel">cancel</string>
+    <string name="save">сохранить</string>
+    <string name="description">Описание</string>
+    <string name="event_list">Список дел</string>
+</resources>
