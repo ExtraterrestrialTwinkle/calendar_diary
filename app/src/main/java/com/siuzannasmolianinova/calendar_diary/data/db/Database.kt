@@ -3,7 +3,7 @@ package com.siuzannasmolianinova.calendar_diary.data.db
 import android.content.Context
 import androidx.room.Room
 import androidx.room.TypeConverters
-import com.siuzannasmolianinova.calendar_diary.data.LocalDateTimeConverter
+import com.siuzannasmolianinova.calendar_diary.presentation.core.utils.LocalDateTimeConverter
 
 @TypeConverters(LocalDateTimeConverter::class)
 object Database {

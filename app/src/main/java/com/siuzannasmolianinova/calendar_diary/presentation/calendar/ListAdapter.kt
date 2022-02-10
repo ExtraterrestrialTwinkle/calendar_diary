@@ -5,14 +5,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.siuzannasmolianinova.calendar_diary.data.EventVisible
+import com.siuzannasmolianinova.calendar_diary.data.db.entities.Event
 import com.siuzannasmolianinova.calendar_diary.databinding.ItemPointBinding
+import org.threeten.bp.ZoneId
+import timber.log.Timber
 
 class ListAdapter(
     private val onItemClick: (Long) -> Unit
-) : ListAdapter<EventVisible, RecyclerView.ViewHolder>(DiffCallback()) {
-    fun loadList(list: List<EventVisible>) {
+) : ListAdapter<Event, RecyclerView.ViewHolder>(DiffCallback()) {
+
+    private var timeArray = arrayOf<String>()
+
+    fun loadList(list: List<Event>) {
         submitList(list)
+    }
+
+    fun timeArray(array: Array<String>) {
+        timeArray = array
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -26,41 +35,44 @@ class ListAdapter(
         }
     }
 
-    override fun getItemId(position: Int): Long = currentList[position].id
-
-    fun getItemStartTime(position: Int): Long = currentList[position].dateStart.toEpochMilli()
+    fun getItemStartTime(position: Int): Long =
+        currentList[position].dateStart.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 
     inner class PointViewHolder(
         private val binding: ItemPointBinding,
         onItemClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.deleteButton.setOnClickListener {
+            binding.root.setOnClickListener {
                 onItemClick(getItemStartTime(bindingAdapterPosition))
             }
         }
 
-        fun bind(event: EventVisible) {
+        fun bind(event: Event) {
+            Timber.d("bind")
             binding.run {
                 titleTextView.text = event.title
-                timeTextView.text = event.dateStart.toString() // поменять
+                if (absoluteAdapterPosition < timeArray.size) {
+                    timeTextView.text = timeArray[absoluteAdapterPosition]
+                }
             }
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<EventVisible>() {
+    class DiffCallback : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(
-            oldItem: EventVisible,
-            newItem: EventVisible
+            oldItem: Event,
+            newItem: Event
         ): Boolean {
-            return newItem.id == oldItem.id
+            return newItem.title == oldItem.title
         }
 
         override fun areContentsTheSame(
-            oldItem: EventVisible,
-            newItem: EventVisible
+            oldItem: Event,
+            newItem: Event
         ): Boolean {
-            return newItem == oldItem
+            return newItem.dateStart == oldItem.dateStart && newItem.description == oldItem.description
+                    && newItem.dateFinish == oldItem.dateFinish
         }
     }
 }

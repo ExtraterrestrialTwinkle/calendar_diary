@@ -8,7 +8,7 @@
     tools:context=".presentation.add.AddFragment">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/appbar"
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -22,7 +22,7 @@
         android:hint="@string/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/appbar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -48,84 +48,6 @@
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <TableLayout
-        android:id="@+id/chooseDateTimeTable"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTextField">
-
-        <TableRow
-            android:id="@+id/dateRow"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/startDateTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                tools:text="пт, 28 янв" />
-
-            <TextView
-                android:id="@+id/endDateTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                tools:text="пт, 28 янв" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/blankRow"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/blankTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="@string/to" />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/timeRow"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/startTimeTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                tools:text="11:00" />
-
-            <TextView
-                android:id="@+id/endTimeTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                tools:text="12:00" />
-
-        </TableRow>
-
-    </TableLayout>
-
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/barrier3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chooseDateTimeTable" />
 
     <Button
         android:id="@+id/cancelButton"

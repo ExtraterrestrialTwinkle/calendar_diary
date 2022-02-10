@@ -1,24 +1,28 @@
 package com.siuzannasmolianinova.calendar_diary.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.siuzannasmolianinova.calendar_diary.data.db.entities.Event
 import com.siuzannasmolianinova.calendar_diary.data.db.entities.EventContract
-import com.siuzannasmolianinova.calendar_diary.data.db.entities.EventExtended
 
 @Dao
 interface EventDao {
 
-    @Insert
-    fun saveEvent(event: EventExtended)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveEvent(event: Event)
 
-    @Insert
-    fun saveOneDay(list: List<EventExtended>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveOneDay(list: List<Event>)
+
+    @Transaction
+    fun saveOneDayEmpty(list: List<Event>, date: String): List<Event> {
+        saveOneDay(list)
+        return openDay(date)
+    }
 
     @Query("SELECT * FROM ${EventContract.TABLE_NAME} WHERE ${EventContract.Columns.DAY} = :date")
-    fun openDay(date: Long): List<EventExtended>
+    fun openDay(date: String): List<Event>
 
-    @Query("DELETE FROM ${EventContract.TABLE_NAME} WHERE ${EventContract.Columns.ID} = :eventId")
-    fun deleteEvent(eventId: Long)
 
+    @Query("SELECT * FROM ${EventContract.TABLE_NAME} WHERE ${EventContract.Columns.START} = :dateStart")
+    fun getEventId(dateStart: Long): Long
 }

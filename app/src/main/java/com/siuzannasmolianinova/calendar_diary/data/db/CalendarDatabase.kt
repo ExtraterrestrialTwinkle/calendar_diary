@@ -3,13 +3,13 @@ package com.siuzannasmolianinova.calendar_diary.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.siuzannasmolianinova.calendar_diary.data.LocalDateTimeConverter
+import com.siuzannasmolianinova.calendar_diary.presentation.core.utils.LocalDateTimeConverter
 import com.siuzannasmolianinova.calendar_diary.data.db.CalendarDatabase.Companion.DB_VERSION
-import com.siuzannasmolianinova.calendar_diary.data.db.entities.EventExtended
+import com.siuzannasmolianinova.calendar_diary.data.db.entities.Event
 
 @TypeConverters(LocalDateTimeConverter::class)
 @Database(
-    entities = [EventExtended::class],
+    entities = [Event::class],
     version = DB_VERSION
 )
 abstract class CalendarDatabase : RoomDatabase() {
